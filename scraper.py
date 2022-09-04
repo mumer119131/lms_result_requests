@@ -81,6 +81,7 @@ def cgpaCal(overall_res):
                     [80, 20]
             ]
     
+    total_gpa = float()
     for semester, semester_result in overall_res.items():
         total_qp =float()
         total_credits = int()
@@ -111,9 +112,12 @@ def cgpaCal(overall_res):
                 continue
 
             
-        cgpa = float(total_qp/total_credits)
-        overall_res["details"]["cgpa"][semester] = round(cgpa, 2)
+        gpa = float(total_qp/total_credits)
+        total_gpa += gpa
+        overall_res["details"]["cgpa"][semester] = round(gpa, 2)
     
+    cgpa = total_gpa / (len(overall_res) - 1)
+    overall_res["details"]["student_details"].append(round(cgpa, 2))
     return overall_res
 
 
